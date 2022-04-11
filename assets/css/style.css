@@ -1,0 +1,532 @@
+/* reset css */
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+html{
+    font-family: Arial, Helvetica, sans-serif;
+}
+/* 
+1.vi tri
+2.kích thước
+3.Màu sắc
+4.kiểu dáng
+*/
+/* Transform:translate() :để di chuyển ptu
+    Transiton thì dùng để tạo ra cách chuyển động của phần tử
+    CSS selector: div p => xđ rõ thẻ p trong div mới dc css,còn thẻ p ngoài thì ko dc.Định danh rõ ràng
+    Khi modifier đứng 1 mình thì các thẻ dc thêm đều đc thừa kế tính chất của nó,
+                    nhưng khi 1 thẻ có tphan block-modifier đứng trc(t set tt) thì chỉ mình thẻ đó thay đổi
+                    Modifier gốc ko thay đổi,và các thẻ dc thêm modifier ko bị ảnh hưởng
+    Block luôn đc tp con kế thừa/ khi block của tp phía sau có sự thay đổi thì nó và con nó chịu sự thay đổi,
+                    gốc ban đầu vẫn bt
+
+
+
+    ---- Padding/margin------
+    Trường hợp width,height sét cứng thì khi padding/margin thì sẽ thêm không gian vào hướng đó đầy ptu đi theo,
+                rồi vượt ra ngoài khung container,có trường hợp sẽ ép ptu nhỏ lại như thẻ img
+    Padding cho 1 thẻ inline thì nó sẽ chiếm ln ptu phía trên chứ ko đẩy nhau ra,
+            trường hợp margin thẻ phía trên ăn luôn thẻ inline thì nên sửa display inline của thẻ
+    Padding hay margin phía trên thì chằn giữa 2 item là khoảng không nên item dưới sẽ dịch xuống,còn thêm phía dưới thì đầy item dưới đi
+    PADDING vẫn tính khoảng cách cho các ptu +px,vậy nên trong container khi padding hay thêm thắt cho ptu thì container sẽ rộng ra,
+
+
+    QUAN TRỌNG LÀ THAO TÁC VỚI THẰNG CHỨA TRỰC TIẾP ÔNG-CHA-CON,NÊN THAO TÁC GIỮA CHA-CON OR ÔNG-CHA
+    thao tác với chữ thì css ngay cho thẻ chứa chữ
+    Overflow:hidden thêm vào cha để ẩn th con
+    Khi sử dụng position thì ptu sẽ thoát khỏi mặt phẳng,nhảy lên cao 1 lớp
+   
+   
+    ---DÀNH CHO ITEM---
+    display:inline hiển thị trên 1 hàng,mặc định width kích thước bằng chính nội dung(width,height ko set dc),ko thay đổi hay kế thừa đc,
+            ko set dc margin-top/bottom
+            Thẻ inline chỉ nằm trong nội dung content,ko chiếm hết dc phần khung của cha
+            mặc định với "span, a, strong, b, i,img..."
+    display: +block cách hiển thị luôn bắt đầu bằng một dòng mới và có chiều rộng bằng 100% chiều rộng trang web.
+                 Hoặc kế thừa theo thẻ cha
+                 Vì vậy khi bạn dùng thẻ này thì mặc dù nội dung ngắn nhưng các thẻ khác ở phía dưới vẫn được nằm ở một dòng khác tách biệt
+             +Với thẻ tính chất block,chưa qui định width height thì mặc định khoảng cách của nó sẽ chiếm hết trang(hoặc th chứa nó),
+                    khi qui định rồi thì vs w-h đc xác định,mặc định block sẽ chiếm hết phần margin còn lại =>có w-h ms margin:auto đựoc
+             Ví dụ như thẻ "div,p,h123,header,UL,.."
+    display:inline-block các phần tử cùng 1 hàng,nhưng thay đổi dc width,height,top,...
+            nhưng vẫn giữ độ dài ,cao ban đầu của phần tử thành phần đến khi set độ mới/ko tự động kế thừa kích thước cha 
+            cho đến khi đc set
+    
+    top,left,right,bot phụ thuộc vào th chứa nó/đi kèm vs position
+    top:px thì tính từ mép trên th cha đến mép trên con
+    top:%  thì tính bn % so với heigth của con rồi tính từ mép như trên
+    position:fixed dùng chung với top,left,... mặc định dùng trình duyệt làm cha,nhưng thẻ chứa khai báo relative thì theo thẻ chứa.
+              Tuy nhiên nếu bạn khai báo một trong bốn thuộc tính sau: top - left- bottom - right 
+              thì lúc này nó sẽ không lấy thẻ cha đó nữa mà nó sẽ lấy cửa sổ trình duyệt làm chuẩn.
+
+    -----CANH GIỮA
+    Những cách căn giữa: text-align(chọn class cần di vào giữa,ko cần để ý cha con)/position:left,right,.../justify/
+                transform vài trường hợp(ngoài kéo giản) cần position để xđ vị trí cha để theo
+                line-height/align-item/padding/kéo cả top và left = 0/
+                margin:auto thường dùng cho khối lớn và vs thẻ div chưa set, cẩn thận nó sẽ chiếm hết khi margin,
+                        margin auto thường dc set width trước,nếu ko item có thể chiếm hết khung hình ko margin dc
+                        Và chú ý các thuộc tính của display:block/inline
+
+    KHI item ko chiếm hết width của cha thì có thể đặt width mỗi item khi cộng lại = 100%
+    
+
+    Align-conten:dùng cho content lớn(chứa nhiều item con nữa)
+    Margin một itemm trong container đc khi khoảng trống của container còn cho item,nếu hết thì margin sẽ chòi ra và ko đẩy dc item
+
+    Một thẻ(item) inline khi dc đặt float thì nó sẽ chuyển qua block
+    Float cho thẻ con thì thẻ cha ko ôm dc hết => dùng class clear cho thẻ cha
+    Float vào các thẻ con(chú ý cùng dùng chung 1 class)
+ 
+    max-width:giới hạn độ dài chứ ko set cố định độ dài
+
+
+    Thẻ input nới rộng bằng cách thêm padding(sử dụng width,height rất dỡ).gốc của input vẫn là phần text bên trong(cao bằng con trỏ chuột)
+ 
+    */
+#main{
+
+}
+#header{
+    height: 46px;
+    background-color: #000;
+    position: fixed; /* khi sử dụng fixed thì ptu sẽ nổi lên tầng trên,dẫn đến ptu sau sẽ chiếm ln khoảng cách phía dưới của th có fixed*/
+    top: 0; /*nhớ kéo tóp để khỏi chạy thanh header(dính sát vs top)*/
+    right: 0;
+    left: 0;
+    z-index: 9999999;
+}
+
+#nav{ /* thẻ u mặc định là block nên sẽ chiếm hết thanh header,nên pai đổi qa inline-block để thêm ô search mới*/
+    display: inline-block;  /* nav này để thay đổi kích thước vs thanh header*/
+}
+#nav,
+.subnav{
+    list-style: none;
+    
+   
+}
+#nav li{    /*mặc định thẻ li là display: inline-block*/
+    position: relative;
+}
+#nav > li{
+    display: inline-block;  /*đưa theo hàng ngang*/
+    /* thằng li này ko đưa về inline đc,vì thằng a bên dưới đang dc set block
+        nên sẽ gây vỡ form của li(vì li set inline ko thể thay đổi kích thước đc)
+    */
+}
+#nav li a{  
+    color: rgb(17, 231, 185);
+    text-decoration: none;
+    line-height: 46px;  /* kích thước chiều cao của 1 dòng chữ bao gồm 2 khoảng phía trên ko tính chữ,dòng chữ sẽ ở ngay giữa dòng line-height; */
+    padding: 0 24px;
+   /* display: inline-block;*/ /* thẻ a mặc định như trên là inline,ko kế thừa đc line-height,cho tt này để
+                            thẻ a nó chiếm hết phần khung của li,để hover nó chiếm trọn li*/
+    display: block; /* a sẽ kế thừa width của li,hoặc cho width 100%*/
+
+}
+#nav > li >a{
+    text-transform: uppercase;
+}
+
+
+#nav > li:hover > a,
+#nav .subnav li:hover a{
+    color: #000;
+    background-color: #ccc;
+}
+#nav li:hover .subnav{
+    display: block;
+}
+#nav .subnav {
+       /* display: none; */
+       position: absolute;
+       top: 100%;
+       left: 0;
+       min-width: 30px;
+       background-color: #fff;
+       box-shadow: 0 0 10px rgb(34, 33, 33);
+       display: none;
+}
+
+#nav .subnav a {
+    color: #000;
+   
+}
+#nav .nav-arrow-down{
+    font-size: 10px;
+}
+.search-btn{ 
+    float: right; /*dùng float đưa qua bên phải của header,và sẽ ép item có float mất tt block || inline thành block */
+    color: #fff;
+    padding: 0 16px;
+    cursor: pointer;
+    
+
+}
+.search-btn:hover{
+    background-color: #ee4d2d;;
+}
+#header .search-icon{
+    font-size: 15px;
+    line-height: 46px;
+   
+   
+}
+#slider{  /* thẻ div chứa là block mặc định chiếm 100% width*/
+    position: relative;
+    margin-top: 46px;
+    padding-top: 50%; /*dùng % nghĩa là bằng 50% của chiều ngang chính nó */
+    background: url('../img/slider/slider2.jpg') top center / cover no-repeat;
+    /* Đường dẫn tương đối khi ko theo thứ tự từ ngoài vào trong(ko theo tuần tự),
+        thì t sử dụng dấu 2 chấm(../ or ../../) để quay về trang cha(trang chứa),
+        cho đến khi nào cùng cấp rồi truy cập tuần tự như bt,
+        2 tệp cùng cấp truy cập dc với nhau(cùng cấp truy cập vào tệp chứa file cần tìm)*/
+}
+
+.text-content{
+    color: #fff;
+    position: absolute;
+    bottom: 47px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center; /*để thẻ cha vẫn dc,mỗi dòng sẽ canh giữa theo th chứa nó*/
+}
+.text-heading{
+    
+}
+.text-decription{
+
+}
+
+#content{
+    
+}
+
+#content .content-section{
+    width: 800px;
+    padding: 64px 0;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+#content .section-heading{
+    text-align: center;
+    font-weight: 500; 
+    letter-spacing: 4px; /*Khoảng cách giữa các chữ*/
+}
+#content .section-sub-heading{
+    font-size: 15px;
+    text-align: center;
+    margin-top: 25px;
+    font-style: italic; /*kiểu chữ:chữ nghiêng*/
+
+}
+#content .about-text{
+    line-height: 1.4;  
+    margin-top: 25px;
+    font-size: 15px;
+    text-align: justify; /*làm 2 đầu văn bản bên trái và bên phải thẳng hàng,ko xê dịch ra ngoài*/
+}
+#content .member-list{
+    margin-top: 48px;
+
+    overflow: hidden;
+}
+#content .member-item{
+    /* float: left;
+    width: 33.33333% ;  gián tiếp áp cho mỗi item cộng lại chiếm hết 100% width */
+    text-align: center;
+}
+#content .member-name{
+    font-size: 15px;
+    text-align: center;
+}
+#content .member-img{
+    width: 154px;  /*vs thẻ img thì đặt width ko cần height,nó tự tỉ lệ bằng nhau*/
+    margin-top: 15px;
+    border-radius: 5px;
+}
+
+.tour-section{
+    background-color: #000;
+    color: #fff;
+}
+.tickets-list{
+    background-color: #fff;
+    margin-top: 40px;
+    color: #000;
+    list-style: none;
+}
+.tickets-list li{
+    font-size: 15px;
+    padding: 11px 16px;
+    border-bottom: 1px solid #ddd;
+}
+.tickets-list .sold-out{
+    background-color: #f44336;
+    color: #fff;
+    padding: 3px 4px;
+    margin-left: 16px;
+}
+.tickets-list .quantity{
+    float: right;
+    background-color: #000;
+    color: #fff;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    text-align: center; /*canh giữa theo trục ngang của dòng*/
+    line-height: 24px; /*chuyên dùng canh giữa trục trên xuống*/
+    margin-top: -3px;
+
+}
+.place-list{
+    /* margin:32px -8px 0; kéo item dưới ngang vs item trên---margin âm sẽ tạo thêm không gian */
+    margin-top: 32px;
+    /* margin-bottom: 48px; */
+}
+/* .place-item{
+
+    width: calc(100% / 3);
+    /* padding: 0 8px ;  /*khi wdith hoặc height đã dc set cố định,hoặc ko dc thay đổi thì padding sẽ đầy content vô trong/ */
+                        /* nếu là margin thì sẽ chòi ra ngoài */ 
+
+.clear{
+    clear: both; /*thẻ cha ko ôm hết thẻ con <==> overflow:hidden*/
+}
+
+.text-center{
+    text-align: center !important;
+}
+.row{
+    margin-left:-8px;
+    margin-right:-8px;
+}
+.row::after{
+    content: "";
+    display: block;
+    clear: both;  /*clear đi chung vs display:block*/
+}
+.col{
+    float:left;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+.col-third{
+    width: 33.33333%;
+}
+.col-half{
+    width: 50%;
+}
+.col-full{
+    width: 100%;
+}
+.mt-8{
+    margin-top: 8px !important;
+}
+.mt-16{
+    margin-top: 16px !important;
+}
+.place-body{
+    color: #333; 
+    text-align: center;
+    background-color: #fff;
+    padding: 16px;
+   
+}
+.place-img{
+    display: block;
+    width: 100%; /*trường hợp ảnh vượt qá width thì set nv-tại vì khi sử dụng float,thẻ cha bị co lại mà ko ôm hết thẻ con*/
+    
+
+}
+.place-img:hover{
+    opacity: 0.6;
+}
+.place-heading{
+    /* margin: 15px 0  10px 0; */
+}
+.place-time{
+    margin: 15px 0 10px 0;
+
+}
+.btn
+{   display: inline-block;   
+    background-color: #333;
+    color: #fff;
+    padding: 8px 20px; /* khi set độ dài cao nhỏ nhỏ ưu tiền padding rồi mới width,height-linh hoạt*/
+    text-decoration: none;
+    border: 1px solid #333;
+    margin-bottom: 8px;
+    border: none;
+}
+.btn:hover{
+    color: #000;
+    background-color: #ccc;
+    cursor: pointer;
+}
+.pull-right{
+    float: right;
+}
+.place-buy-btn:hover{
+    background-color: #fff;
+    color: #000;
+}
+
+.contact-content{
+    margin-top: 48px;
+}
+.contact-info{
+    font-size: 18px;
+    line-height: 1.5; /*chiều cao dòng chữ tính bằng cấp số nhân so với kích thước chữ của nó,vd cỡ chữ 20 thì 1.5 <=> 30px */
+}
+.contact-info p i[class*="ti-"]{
+    display: inline-block;  /*thẻ i là inline,nên dùng inline block để set width*/
+    width: 30px; /* width này bao bên ngoài icon,ko pải set trực tiếp cho icon*/
+}
+
+.contact-form{
+    font-size: 15px;
+}
+.contact-form .form-control{
+    padding:10px;
+    border:1px solid #ccc;
+    width: 100%;
+}
+
+.map-section img{
+    width: 100%; /*100% của thẻ chứa nó*/
+
+}
+#footer{
+    padding: 64px 16px;
+    text-align: center;
+
+}
+#footer .social-list{
+    font-size: 24px;
+}
+
+#footer .social-list a{
+    color:rgba(0,0,0,0.6);
+    text-decoration: none;
+}
+
+#footer .social-list a:hover{
+    color:rgba(0,0,0,0.4)
+}
+
+.copyright{
+    margin-top:15px;
+    color:rgba(0,0,0,0.6);
+
+}
+#footer .copyright a{
+    color:rgba(0,0,0,0.6);
+
+}
+
+.modal{   /*class này tương tự như main--gồm cả lớp phủ chứ ko pải riêng form modal*/
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-color:rgba(0,0,0,0.4) ;
+    display: none;
+    align-items: center;  /*trục ngang*/
+    justify-content: center; /*trục dọc*/
+}
+.modal.open{  /*thêm modifier cho thẻ modal-tí set js thì thêm class này zô*/
+    display: flex;
+}
+.modal-container{
+    background-color: #fff;
+    width: 900px;
+    max-width: calc(100% - 32px);
+    min-height: 200px;
+    position: relative;
+    animation: modalFadeIn ease 0.5s;
+}
+
+.modal-header{
+    background-color: #009688;
+    height: 130px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    color:#fff;
+
+}
+
+.modal-heading-icon{
+    margin-right:16px
+}
+
+.modal-close{
+    position: absolute;
+    right: 0;
+    top: 0;
+    color:#fff;
+    padding :12px;
+    cursor: pointer;
+}
+.modal-close:hover{
+    opacity: 0.8;
+}
+
+.modal-body{
+    padding: 16px;
+}
+
+.modal-label{
+    display: block;
+    font-size: 15px;
+}
+.modal-input{
+    border:1px solid #ccc;
+    width: 100%;
+    padding: 10px;
+    font-size: 15px; /*font-size cung ảnh hưởng khi thêm padding(làm tăng thêm)*/
+    margin-bottom: 24px;
+}
+
+.modal-label{
+    margin-bottom: 12px;
+}
+#buy-ticket{
+    background-color: #009688;
+    border:none;
+    color:#FFF;
+    width: 100%;
+    text-transform: uppercase;
+    padding: 12px;
+    cursor: pointer;
+}
+#buy-ticket:hover{
+    opacity: 0.9;
+}
+
+.modal-footer{
+    padding: 16px;
+    text-align: right;
+
+}
+
+.modal-footer p a{
+    color:aqua; 
+}
+
+@keyframes modalFadeIn{
+    from{
+        transform:translateY(-140px) ;
+        opacity: 0;
+    }
+    to{
+        transform:translateY(0) ;
+        opacity: 1;
+    }
+}
